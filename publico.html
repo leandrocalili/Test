@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja - Página do Público</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .logo {
+            position: absolute;
+            left: 10px;
+            height: 50px;
+        }
+        .carrinho {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #ffcc00;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .produtos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .produto {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px;
+            width: 200px;
+        }
+        .produto img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .preco {
+            font-weight: bold;
+            color: green;
+        }
+        .contato {
+            margin-top: 20px;
+        }
+        .whatsapp, .instagram {
+            display: inline-block;
+            background-color: #25d366;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .instagram {
+            background-color: #E1306C;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Logo da Loja" class="logo">
+        <h1>Minha Loja</h1>
+        <div class="carrinho" onclick="mostrarCarrinho()">🛒 Carrinho (<span id="quantidade-carrinho">0</span>)</div>
+    </header>
+
+    <section class="produtos" id="produtos"></section>
+
+    <div class="contato">
+        <a href="#" target="_blank" class="whatsapp" id="link-whatsapp">WhatsApp</a>
+        <a href="#" target="_blank" class="instagram" id="link-instagram">Instagram</a>
+    </div>
+
+    <div id="modal-carrinho" class="modal">
+        <h2>Meu Carrinho</h2>
+        <div id="itens-carrinho"></div>
+        <p><strong>Total:</strong> R$ <span id="total-carrinho">0.00</span></p>
+        <label>Forma de pagamento:</label>
+        <select id="forma-pagamento">
+            <option value="dinheiro">Dinheiro</option>
+            <option value="pix">Pix</option>
+        </select>
+        <button onclick="enviarPedido()">Gerar Nota e Enviar</button>
+        <button onclick="fecharCarrinho()">Fechar</button>
+    </div>
+
+    <script>
+        let carrinho = [];
+
+        function carregarProdutos() {
+            let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+            let numeroWhatsApp = localStorage.getItem("whatsapp");
+            let instagram = localStorage.getItem("instagram");
+            const container = document.getElementById("produtos");
+            container.innerHTML = "";
+            
+            produtos.forEach((produto, index) => {
+                const div = document.createElement("div");
+                div.classList.add("produto");
+                div.innerHTML = `
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <h2>${produto.nome}</h2>
+                    <p>${produto.descricao}</p>
+                    <span class="preco">R$ ${parseFloat(produto.preco).toFixed(2)}</span>
+                    <button onclick="adicionarAoCarrinho(${index})">Adicionar ao Carrinho</button>
+                `;
+                container.appendChild(div);
+            });
+
+            if (numeroWhatsApp) {
+                document.getElementById("link-whatsapp").href = `https://wa.me/${numeroWhatsApp}`;
+            }
+            if (instagram) {
+                document.getElementById("link-instagram").href = instagram;
+            }
+        }
+
+        function adicionarAoCarrinho(index) {
+            let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+            carrinho.push(produtos[index]);
+            atualizarCarrinho();
+        }
+
+        function atualizarCarrinho() {
+            document.getElementById("quantidade-carrinho").innerText = carrinho.length;
+            let total = carrinho.reduce((acc, produto) => acc + parseFloat(produto.preco), 0);
+            document.getElementById("total-carrinho").innerText = total.toFixed(2);
+        }
+
+        function mostrarCarrinho() {
+            document.getElementById("modal-carrinho").style.display = "block";
+        }
+
+        function fecharCarrinho() {
+            document.getElementById("modal-carrinho").style.display = "none";
+        }
+
+        function enviarPedido() {
+            let numeroWhatsApp = localStorage.getItem("whatsapp");
+            if (!numeroWhatsApp) {
+                alert("Número de WhatsApp não configurado!");
+                return;
+            }
+
+            let mensagem = "Olá, gostaria de fazer um pedido:\n\n";
+            carrinho.forEach(produto => {
+                mensagem += `Produto: ${produto.nome}\nTamanho: ${produto.descricao}\nPreço: R$ ${parseFloat(produto.preco).toFixed(2)}\n\n`;
+            });
+            
+            let formaPagamento = document.getElementById("forma-pagamento").value;
+            let total = document.getElementById("total-carrinho").innerText;
+            mensagem += `Forma de pagamento: ${formaPagamento}\nTotal: R$ ${total}\n\nObrigado!`;
+            
+            let link = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+            window.open(link, "_blank");
+        }
+
+        carregarProdutos();
+    </script>
+</body>
+</html>
