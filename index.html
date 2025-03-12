@@ -47,14 +47,42 @@
             padding: 15px;
             margin: 10px;
             width: 200px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        .produto:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         .produto img {
             max-width: 100%;
             border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .produto:hover img {
+            transform: translateY(-5px);
+        }
+        .produto button {
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .produto button:hover {
+            background-color: #555;
+            transform: translateY(-2px);
         }
         .preco {
             font-weight: bold;
             color: green;
+            transition: all 0.3s ease;
+        }
+        .produto:hover .preco {
+            transform: scale(1.1);
         }
         .contato {
             margin-top: 20px;

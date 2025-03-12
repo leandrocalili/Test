@@ -3,38 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Loja</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Painel Administrativo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
+            background-color: #f4f4f4;
         }
         header {
             background-color: #333;
             color: white;
-            padding: 10px;
+            padding: 15px;
+            font-size: 20px;
         }
-        nav a {
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .formulario input, .formulario button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .formulario button {
+            background-color: #28a745;
             color: white;
-            margin: 0 15px;
-            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
         }
         .produtos {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
-            padding: 20px;
+            justify-content: center;
+            gap: 10px;
         }
         .produto {
+            background: white;
             border: 1px solid #ddd;
             border-radius: 5px;
             padding: 15px;
-            margin: 10px;
             width: 200px;
+            text-align: center;
             position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         .produto img {
             max-width: 100%;
@@ -43,9 +62,6 @@
         .preco {
             font-weight: bold;
             color: green;
-        }
-        .formulario {
-            margin: 20px;
         }
         .remover {
             background-color: red;
@@ -61,28 +77,26 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Minha Loja</h1>
-    </header>
+    <header>Painel Administrativo</header>
 
-    <div class="formulario">
-        <h2>Adicionar Novo Produto</h2>
-        <input type="text" id="nome" placeholder="Nome do Produto">
-        <input type="text" id="descricao" placeholder="Descrição">
-        <input type="text" id="preco" placeholder="Preço">
-        <input type="file" id="imagem" accept="image/*">
-        <button onclick="adicionarProduto()">Adicionar</button>
+    <div class="container">
+        <div class="formulario">
+            <h2>Adicionar Novo Produto</h2>
+            <input type="text" id="nome" placeholder="Nome do Produto">
+            <input type="text" id="descricao" placeholder="Descrição">
+            <input type="text" id="preco" placeholder="Preço">
+            <input type="file" id="imagem" accept="image/*">
+            <button onclick="adicionarProduto()">Adicionar</button>
+        </div>
+
+        <div class="formulario">
+            <h2>Definir Contato do WhatsApp</h2>
+            <input type="text" id="whatsapp" placeholder="Número do WhatsApp (com DDD)">
+            <button onclick="salvarWhatsApp()">Salvar</button>
+        </div>
     </div>
 
-    <div class="formulario">
-        <h2>Definir Contato do WhatsApp</h2>
-        <input type="text" id="whatsapp" placeholder="Número do WhatsApp (com DDD)">
-        <button onclick="salvarWhatsApp()">Salvar</button>
-    </div>
-
-    <section class="produtos" id="produtos">
-        <!-- Produtos serão carregados aqui -->
-    </section>
+    <section class="produtos" id="produtos"></section>
 
     <script>
         let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
@@ -122,7 +136,7 @@
                     <img src="${produto.imagem}" alt="${produto.nome}">
                     <h2>${produto.nome}</h2>
                     <p>${produto.descricao}</p>
-                    <span class="preco">${produto.preco}</span>
+                    <span class="preco">R$ ${parseFloat(produto.preco).toFixed(2)}</span>
                 `;
                 container.appendChild(div);
             });
@@ -142,4 +156,3 @@
     </script>
 </body>
 </html>
-
