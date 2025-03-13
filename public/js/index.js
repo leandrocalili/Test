@@ -1,20 +1,26 @@
+import { supabase } from "../../supabase/supabase.js";
+
 let carrinho = [];
 
-function carregarProdutos() {
-  let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+async function carregarProdutos() {
+  const { data, err } = await supabase.from("products").select("*");
+
+  console.log(data);
+
   let numeroWhatsApp = localStorage.getItem("whatsapp");
   let instagram = localStorage.getItem("instagram");
   const container = document.getElementById("produtos");
+
   container.innerHTML = "";
 
-  produtos.forEach((produto, index) => {
+  data.map((produto, index) => {
+    console.log(produto);
     const div = document.createElement("div");
     div.classList.add("produto");
     div.innerHTML = `
-                    <img src="${produto.imagem}" alt="${produto.nome}">
-                    <h2>${produto.nome}</h2>
-                    <p>${produto.descricao}</p>
-                    <span class="preco">R$ ${parseFloat(produto.preco).toFixed(2)}</span>
+                    <img src="${produto.image_url}" alt="${produto.name}">
+                    <h2>${produto.name}</h2>
+                    <span class="preco">R$ ${parseFloat(produto.price).toFixed(2)}</span>
                     <button onclick="adicionarAoCarrinho(${index})">Adicionar ao Carrinho</button>
                 `;
     container.appendChild(div);
