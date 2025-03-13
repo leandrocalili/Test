@@ -2,10 +2,16 @@ import { supabase } from "../../supabase/supabase.js";
 
 let carrinho = [];
 
+// Função para carregar produtos do Supabase
 async function carregarProdutos() {
   const { data, err } = await supabase.from("products").select("*");
 
-  console.log(data);
+  if (err) {
+    return;
+  }
+
+  // Salvar os produtos no localStorage
+  localStorage.setItem("produtos", JSON.stringify(data));
 
   let numeroWhatsApp = localStorage.getItem("whatsapp");
   let instagram = localStorage.getItem("instagram");
@@ -13,16 +19,15 @@ async function carregarProdutos() {
 
   container.innerHTML = "";
 
-  data.map((produto, index) => {
-    console.log(produto);
+  data.forEach((produto) => {
     const div = document.createElement("div");
     div.classList.add("produto");
     div.innerHTML = `
-                    <img src="${produto.image_url}" alt="${produto.name}">
-                    <h2>${produto.name}</h2>
-                    <span class="preco">R$ ${parseFloat(produto.price).toFixed(2)}</span>
-                    <button onclick="adicionarAoCarrinho(${index})">Adicionar ao Carrinho</button>
-                `;
+      <img src="${produto.image_url}" alt="${produto.name}">
+      <h2>${produto.name}</h2>
+      <span class="preco">R$ ${parseFloat(produto.price).toFixed(2)}</span>
+      <button onclick="adicionarAoCarrinho('${produto.id}')">Adicionar ao Carrinho</button>
+    `;
     container.appendChild(div);
   });
 
@@ -34,53 +39,80 @@ async function carregarProdutos() {
   }
 }
 
-function adicionarAoCarrinho(index) {
+// Função para adicionar um produto ao carrinho
+window.adicionarAoCarrinho = function (id) {
+  // Recuperar os produtos do localStorage
   let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
-  carrinho.push(produtos[index]);
-  atualizarCarrinho();
 
-  // Feedback visual ao adicionar ao carrinho
-  const carrinhoElement = document.querySelector(".carrinho");
-  carrinhoElement.style.transform = "scale(1.1)";
-  setTimeout(() => {
-    carrinhoElement.style.transform = "none";
-  }, 200);
-}
+  // Converter o ID passado para número
+  let idNumerico = Number(id);
 
+  // Encontrar o produto pelo ID
+  let produto = produtos.find((p) => p.id === idNumerico);
+
+  if (produto) {
+    carrinho.push(produto);
+    atualizarCarrinho();
+
+    // Feedback visual ao adicionar ao carrinho
+    const carrinhoElement = document.querySelector(".carrinho");
+    carrinhoElement.style.transform = "scale(1.1)";
+    setTimeout(() => {
+      carrinhoElement.style.transform = "none";
+    }, 200);
+  } else {
+    return;
+  }
+};
+
+// Função para atualizar o carrinho na interface
 function atualizarCarrinho() {
-  document.getElementById("quantidade-carrinho").innerText = carrinho.length;
-  let total = carrinho.reduce((acc, produto) => acc + parseFloat(produto.preco), 0);
-  document.getElementById("total-carrinho").innerText = total.toFixed(2);
-
-  // Atualizar os itens no carrinho
   const itensCarrinho = document.getElementById("itens-carrinho");
+  const totalCarrinho = document.getElementById("total-carrinho");
+
+  // Limpar o conteúdo anterior
   itensCarrinho.innerHTML = "";
+
+  // Calcular o total
+  let total = 0;
 
   carrinho.forEach((produto, index) => {
     const div = document.createElement("div");
     div.classList.add("item-carrinho");
     div.innerHTML = `
-                    <span>${produto.nome} - R$ ${parseFloat(produto.preco).toFixed(2)}</span>
-                    <button onclick="removerDoCarrinho(${index})">Remover</button>
-                `;
+      <span>${produto.name} - R$ ${parseFloat(produto.price).toFixed(2)}</span>
+      <button onclick="removerDoCarrinho(${index})">Remover</button>
+    `;
     itensCarrinho.appendChild(div);
+
+    total += parseFloat(produto.price);
   });
+
+  // Atualizar o total do carrinho
+  totalCarrinho.innerText = total.toFixed(2);
+
+  // Atualizar a quantidade de itens no ícone do carrinho
+  document.getElementById("quantidade-carrinho").innerText = carrinho.length;
 }
 
-function removerDoCarrinho(index) {
+// Função para remover um item do carrinho
+window.removerDoCarrinho = function (index) {
   carrinho.splice(index, 1); // Remover o produto do carrinho
   atualizarCarrinho();
-}
+};
 
-function mostrarCarrinho() {
+// Função para mostrar o modal do carrinho
+window.mostrarCarrinho = function () {
   document.getElementById("modal-carrinho").style.display = "block";
-}
+};
 
-function fecharCarrinho() {
+// Função para fechar o modal do carrinho
+window.fecharCarrinho = function () {
   document.getElementById("modal-carrinho").style.display = "none";
-}
+};
 
-function enviarPedido() {
+// Função para enviar o pedido via WhatsApp
+window.enviarPedido = function () {
   let numeroWhatsApp = localStorage.getItem("whatsapp");
   if (!numeroWhatsApp) {
     alert("Número de WhatsApp não configurado!");
@@ -89,9 +121,7 @@ function enviarPedido() {
 
   let mensagem = "Olá, gostaria de fazer um pedido:\n\n";
   carrinho.forEach((produto) => {
-    mensagem += `Produto: ${produto.nome}\nTamanho: ${produto.descricao}\nPreço: R$ ${parseFloat(
-      produto.preco
-    ).toFixed(2)}\n\n`;
+    mensagem += `Produto: ${produto.name}\nPreço: R$ ${parseFloat(produto.price).toFixed(2)}\n\n`;
   });
 
   let formaPagamento = document.getElementById("forma-pagamento").value;
@@ -100,6 +130,7 @@ function enviarPedido() {
 
   let link = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
   window.open(link, "_blank");
-}
+};
 
+// Carregar os produtos ao iniciar a página
 carregarProdutos();
