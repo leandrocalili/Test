@@ -1,0 +1,199 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #f5f5f5;
+}
+header {
+  background: linear-gradient(to right, #1a1a1a, #333);
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  height: 80px; /* Adicionado para manter a altura fixa */
+}
+.logo {
+  position: absolute;
+  left: 30px;
+  height: 100px;
+  transition: transform 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.05);
+}
+.carrinho {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(145deg, #ffcc00, #ffa500);
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+.carrinho:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+.produtos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 30px;
+  gap: 25px;
+}
+.produto {
+  border: none;
+  border-radius: 12px;
+  padding: 20px;
+  width: 250px;
+  background: white;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+.produto:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+.produto img {
+  max-width: 100%;
+  border-radius: 8px;
+  transition: all 0.4s ease;
+  object-fit: cover;
+  height: 200px;
+}
+.produto:hover img {
+  transform: scale(1.08);
+}
+.produto button {
+  background: linear-gradient(145deg, #333, #444);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+.produto button:hover {
+  background: linear-gradient(145deg, #444, #555);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.preco {
+  font-weight: bold;
+  color: #2ecc71;
+  font-size: 1.2em;
+  display: block;
+  margin: 10px 0;
+  transition: all 0.3s ease;
+}
+.produto:hover .preco {
+  transform: scale(1.1);
+  color: #27ae60;
+}
+.contato {
+  margin: 40px 0;
+  padding: 20px;
+}
+.whatsapp,
+.instagram {
+  display: inline-block;
+  background: linear-gradient(145deg, #25d366, #128c7e);
+  color: white;
+  padding: 12px 30px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  margin: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.instagram {
+  background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+}
+.whatsapp:hover,
+.instagram:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  max-width: 500px;
+  width: 90%;
+}
+.modal h2 {
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+#forma-pagamento {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1em;
+}
+.modal button {
+  background: linear-gradient(145deg, #333, #444);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 10px 5px;
+  font-weight: bold;
+}
+.modal button:hover {
+  background: linear-gradient(145deg, #444, #555);
+  transform: translateY(-2px);
+}
+.produto h2 {
+  color: #333;
+  margin: 15px 0 10px 0;
+  font-size: 1.2em;
+}
+.produto p {
+  color: #666;
+  margin: 10px 0;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+.item-carrinho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+.item-carrinho button {
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+}

@@ -1,0 +1,70 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+header {
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+}
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.formulario input,
+.formulario button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.formulario button {
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+.produtos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.produto {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  width: 200px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.produto img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+.preco {
+  font-weight: bold;
+  color: green;
+}
+.remover {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border-radius: 5px;
+}
