@@ -234,4 +234,12 @@ header {
   display: flex;
   justify-content: center;
   gap: 20px;
+  margin-bottom: 10px;
+}
+
+.copyright {
+  color: #fff;
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-top: 10px;
 }
