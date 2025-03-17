@@ -37,12 +37,22 @@ const showNotification = (message, type = "success") => {
 window.adicionarProduto = async function () {
   const nome = document.getElementById("nome").value;
   const quantidade = document.getElementById("quantidade").value;
-  const tamanho = document.getElementById("tamanho").value;
+  const tamanho = document.getElementById("tamanho").value.trim();
   const preco = document.getElementById("preco").value;
   const imagemInput = document.getElementById("imagem");
 
   if (!nome || !quantidade || !tamanho || !preco) {
     showNotification("Por favor, preencha todos os campos obrigatórios", "error");
+    return;
+  }
+
+  // Validate tamanho format (comma-separated values)
+  const tamanhos = tamanho
+    .split(",")
+    .map((t) => t.trim())
+    .filter((t) => t);
+  if (tamanhos.length === 0) {
+    showNotification("Por favor, informe pelo menos um tamanho válido", "error");
     return;
   }
 
@@ -60,7 +70,7 @@ window.adicionarProduto = async function () {
       const updateData = {
         name: nome,
         stock_quantity: quantidade,
-        size: tamanho,
+        size: tamanho, // Store as comma-separated string
         price: preco,
       };
 
@@ -282,6 +292,12 @@ async function atualizarProdutos() {
 
   container.innerHTML = "";
   data.forEach((produto) => {
+    // Format sizes for display
+    const tamanhos = produto.size
+      .split(",")
+      .map((t) => t.trim())
+      .join(", ");
+
     const div = document.createElement("div");
     div.classList.add("produto");
     div.innerHTML = `
@@ -296,7 +312,7 @@ async function atualizarProdutos() {
       <img src="${produto.image_url}" alt="${produto.name}">
       <h2>${produto.name}</h2>
       <p><i class="fas fa-cubes"></i> Quantidade: ${produto.stock_quantity}</p>
-      <p><i class="fas fa-ruler"></i> Tamanho: ${produto.size}</p>
+      <p><i class="fas fa-ruler"></i> Tamanhos: ${tamanhos}</p>
       <span class="preco">R$ ${parseFloat(produto.price).toFixed(2)}</span>
     `;
     container.appendChild(div);
