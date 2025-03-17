@@ -3,83 +3,40 @@ import { supabase } from "../../supabase/supabase.js";
 // Global variable to track if we're in edit mode
 let editingProductId = null;
 
+// Add to your adicionarProduto function
 window.adicionarProduto = async function () {
   const nome = document.getElementById("nome").value;
   const quantidade = document.getElementById("quantidade").value;
   const tamanho = document.getElementById("tamanho").value;
   const preco = document.getElementById("preco").value;
+  const personalizavel = document.getElementById("personalizavel").checked;
   const imagemInput = document.getElementById("imagem");
 
-  if (!nome || !quantidade || !tamanho || !preco) {
+  if (!nome || !quantidade || !tamanho || !preco || !imagemInput.files.length) {
+    alert("Preencha todos os campos!");
     return;
   }
 
   try {
-    let base64Image = null;
+    // Convert image to base64 string
+    const imagemFile = imagemInput.files[0];
+    const base64Image = await convertToBase64(imagemFile);
 
-    // Only process image if a new one is provided
-    if (imagemInput.files.length > 0) {
-      const imagemFile = imagemInput.files[0];
-      base64Image = await convertToBase64(imagemFile);
-    }
-
-    // If we're editing, update the product
-    if (editingProductId) {
-      const updateData = {
+    // Insert product into Supabase
+    const { data, error } = await supabase.from("products").insert([
+      {
         name: nome,
         stock_quantity: quantidade,
         size: tamanho,
         price: preco,
-      };
+        image_url: base64Image,
+        personalizavel: personalizavel, // Add this new field
+      },
+    ]);
 
-      // Only update image if a new one is provided
-      if (base64Image) {
-        updateData.image_url = base64Image;
-      }
-
-      const { error } = await supabase
-        .from("products")
-        .update(updateData)
-        .eq("id", editingProductId);
-
-      if (error) {
-        return;
-      }
-
-      // Reset edit mode
-      editingProductId = null;
-      document.getElementById("submitBtn").textContent = "Adicionar Produto";
-      document.getElementById("cancelBtn").style.display = "none";
+    if (error) {
+      return;
     }
-    // Otherwise create a new product
-    else {
-      if (!imagemInput.files.length) {
-        return;
-      }
-
-      const { data, error } = await supabase.from("products").insert([
-        {
-          name: nome,
-          stock_quantity: quantidade,
-          size: tamanho,
-          price: preco,
-          image_url: base64Image,
-        },
-      ]);
-
-      if (error) {
-        return;
-      }
-    }
-
-    // Clear form fields after successful addition/update
-    document.getElementById("nome").value = "";
-    document.getElementById("quantidade").value = "";
-    document.getElementById("tamanho").value = "";
-    document.getElementById("preco").value = "";
-    document.getElementById("imagem").value = "";
-
-    atualizarProdutos();
   } catch (err) {
     return;
   }

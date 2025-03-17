@@ -41,6 +41,17 @@
               <input type="number" step="0.01" id="preco" placeholder="Ex: 49.90" min="0" />
             </div>
             <div class="form-group">
+              <label for="personalizavel">Personalizável</label>
+              <div class="toggle-container">
+                <input type="checkbox" id="personalizavel" />
+                <label for="personalizavel" class="toggle-label">
+                  <span class="toggle-inner"></span>
+                  <span class="toggle-switch"></span>
+                </label>
+              </div>
+              <small>Marque esta opção se o cliente pode adicionar nome/número ao produto</small>
+            </div>
+            <div class="form-group">
               <label for="imagem">Imagem do produto</label>
               <div class="file-input-container">
                 <input type="file" id="imagem" accept="image/*" />

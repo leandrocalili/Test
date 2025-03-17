@@ -5,38 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loja - Página do Público</title>
     <link rel="stylesheet" href="./public/css/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
   <body>
     <header>
       <img src="logodaloja01.png" alt="Logo da Loja" class="logo" />
       <div class="carrinho" onclick="mostrarCarrinho()">
-        🛒 Carrinho (<span id="quantidade-carrinho">0</span>)
+        <i class="fas fa-shopping-cart"></i> Carrinho (<span id="quantidade-carrinho">0</span>)
       </div>
     </header>
 
     <section class="produtos" id="produtos"></section>
 
+    <!-- Modal de detalhes do produto -->
+    <div id="modal-produto" class="modal">
+      <div class="modal-content">
+        <span class="fechar-modal" onclick="fecharModalProduto()">&times;</span>
+        <div class="produto-detalhes">
+          <div class="produto-imagem">
+            <img id="detalhe-imagem" src="" alt="Imagem do produto" />
+          </div>
+          <div class="produto-info">
+            <h2 id="detalhe-nome"></h2>
+            <p class="preco">R$ <span id="detalhe-preco"></span></p>
+
+            <div class="opcoes-produto">
+              <div class="tamanhos">
+                <label>Tamanho:</label>
+                <div id="opcoes-tamanho" class="opcoes-botoes"></div>
+              </div>
+
+              <!-- No changes needed to the HTML file as it already has the correct structure for the personalization fields -->
+              <div id="personalizacao-container" style="display: none">
+                <label>Personalização:</label>
+                <div class="personalizacao-campos">
+                  <div class="form-group">
+                    <label for="texto-personalizacao-nome">Nome:</label>
+                    <input type="text" id="texto-personalizacao-nome" placeholder="Digite o nome" />
+                  </div>
+                  <div class="form-group">
+                    <label for="texto-personalizacao-numero">Número:</label>
+                    <input
+                      type="text"
+                      id="texto-personalizacao-numero"
+                      placeholder="Digite o número"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="quantidade">
+                <label>Quantidade:</label>
+                <div class="quantidade-controle">
+                  <button onclick="diminuirQuantidade()">-</button>
+                  <input type="number" id="quantidade-produto" value="1" min="1" />
+                  <button onclick="aumentarQuantidade()">+</button>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-adicionar" onclick="adicionarAoCarrinhoDetalhes()">
+              <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="modal-carrinho" class="modal">
-      <h2>Meu Carrinho</h2>
-      <div id="itens-carrinho"></div>
-      <p><strong>Total:</strong> R$ <span id="total-carrinho">0.00</span></p>
-      <label>Forma de pagamento:</label>
-      <select id="forma-pagamento">
-        <option value="dinheiro">Dinheiro</option>
-        <option value="pix">Pix</option>
-      </select>
-      <button onclick="enviarPedido()">Gerar Nota e Enviar</button>
-      <button onclick="fecharCarrinho()">Fechar</button>
+      <div class="modal-content">
+        <span class="fechar-modal" onclick="fecharCarrinho()">&times;</span>
+        <h2><i class="fas fa-shopping-cart"></i> Meu Carrinho</h2>
+        <div id="itens-carrinho"></div>
+        <div class="carrinho-rodape">
+          <p><strong>Total:</strong> R$ <span id="total-carrinho">0.00</span></p>
+          <div class="form-group">
+            <label>Forma de pagamento:</label>
+            <select id="forma-pagamento">
+              <option value="dinheiro">Dinheiro</option>
+              <option value="pix">Pix</option>
+            </select>
+          </div>
+          <div class="carrinho-botoes">
+            <button class="btn-enviar" onclick="enviarPedido()">
+              <i class="fas fa-paper-plane"></i> Gerar Nota e Enviar
+            </button>
+            <button class="btn-fechar" onclick="fecharCarrinho()">
+              <i class="fas fa-times"></i> Fechar
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <footer class="footer">
       <div class="social-links">
-        <a href="https://wa.me/+553398681074" target="_blank" class="whatsapp" id="link-whatsapp">WhatsApp</a>
-        <a href="https://instagram.com/estilourbano.itacity" class="instagram" id="link-instagram">Instagram</a>
+        <a href="https://wa.me/+553398681074" target="_blank" class="whatsapp" id="link-whatsapp">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        <a href="https://instagram.com/estilourbano.itacity" class="instagram" id="link-instagram">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
       </div>
-      <div class="copyright">
-        © 2025 Space Store. Todos os direitos reservados
-      </div>
+      <div class="copyright">© 2025 Space Store. Todos os direitos reservados</div>
     </footer>
 
     <script type="module" src="./public/js/index.js"></script>
