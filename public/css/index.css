@@ -19,15 +19,13 @@ header {
   padding: 15px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   position: relative;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   height: 80px;
 }
 
 .logo {
-  position: absolute;
-  left: 30px;
   height: 100px;
   transition: transform 0.3s ease;
 }
@@ -37,17 +35,13 @@ header {
 }
 
 .carrinho {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #000;
+  background: linear-gradient(145deg, #ffcc00, #ffa500);
   color: white;
   padding: 12px 20px;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
   border: 1px solid #333;
 }
 
@@ -149,13 +143,6 @@ header {
   margin: 10px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.whatsapp:hover,
-.instagram:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  background: #222;
 }
 
 /* Modal styles */
@@ -738,13 +725,12 @@ header {
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .whatsapp,
 .instagram {
   display: inline-block;
-  background: #000;
   color: white;
   padding: 12px 30px;
   text-decoration: none;
@@ -759,13 +745,14 @@ header {
 .instagram:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  background: #222;
 }
 
-.copyright {
-  text-align: center;
-  font-size: 0.9em;
-  opacity: 0.8;
+.whatsapp {
+  background: linear-gradient(145deg, #25d366, #128c7e);
+}
+
+.instagram {
+  background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
 }
 
 .footer-content {
@@ -777,46 +764,10 @@ header {
   gap: 30px;
 }
 
-.footer-section {
-  flex: 1;
-  min-width: 250px;
-  text-align: left;
-}
-
-.footer-section h3 {
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-  position: relative;
-  padding-bottom: 10px;
-}
-
-.footer-section h3:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 50px;
-  height: 2px;
-  background: #555;
-}
-
-.footer-section p {
-  margin: 8px 0;
-  opacity: 0.8;
-}
-
-.social-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 15px;
-}
-
 .copyright {
   text-align: center;
   padding-top: 30px;
-  margin-top: 40px;
-  border-top: 1px solid #333;
+  margin-top: 10px;
   font-size: 0.9rem;
   opacity: 0.7;
 }
@@ -843,14 +794,4 @@ header {
   .hero-section h1 {
     font-size: 2rem;
   }
-}
-
-.social-links {
-  margin-bottom: 20px;
-}
-
-.copyright {
-  font-size: 0.9em;
-  opacity: 0.8;
-  margin-top: 20px;
 }
