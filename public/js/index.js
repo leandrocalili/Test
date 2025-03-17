@@ -295,7 +295,7 @@ window.adicionarAoCarrinhoDetalhes = function () {
     const numero = numeroInput ? numeroInput.value : "";
 
     if (nome || numero) {
-      personalizacao = `Nome: ${nome || "N/A"}, Número: ${numero || "N/A"}`;
+      personalizacao = `Nome: ${nome || "Sem nome"}, Número: ${numero || "Sem número"}`;
     }
   }
 
