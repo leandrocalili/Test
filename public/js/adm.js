@@ -238,11 +238,6 @@ window.cancelarEdicao = function () {
 };
 
 window.removerProduto = async function (id) {
-  // Confirm before deleting
-  if (!confirm("Tem certeza que deseja remover este produto?")) {
-    return;
-  }
-
   const { error } = await supabase.from("products").delete().eq("id", id);
 
   if (error) {

@@ -19,7 +19,6 @@ async function carregarProdutos() {
   const { data, error } = await supabase.from("products").select("*");
 
   if (error) {
-    console.error("Erro ao carregar produtos:", error);
     return;
   }
 
@@ -64,7 +63,6 @@ window.adicionarAoCarrinho = function (id, quantidade = 1, tamanho = null, perso
   const produto = produtos.find((p) => p.id === id);
 
   if (!produto) {
-    console.error("Produto não encontrado:", id);
     return;
   }
 
@@ -108,9 +106,6 @@ window.adicionarAoCarrinho = function (id, quantidade = 1, tamanho = null, perso
       carrinhoElement.style.transform = "none";
     }, 200);
   }
-
-  // Show confirmation
-  alert("Produto adicionado ao carrinho!");
 };
 
 // Função para atualizar o carrinho na interface
@@ -192,12 +187,10 @@ window.fecharCarrinho = function () {
 window.enviarPedido = function () {
   let numeroWhatsApp = "+553398681074";
   if (!numeroWhatsApp) {
-    alert("Número de WhatsApp não configurado!");
     return;
   }
 
   if (carrinho.length === 0) {
-    alert("Seu carrinho está vazio!");
     return;
   }
 
@@ -290,7 +283,6 @@ window.diminuirQuantidade = function () {
 
 window.adicionarAoCarrinhoDetalhes = function () {
   if (!selectedSize) {
-    alert("Por favor, selecione um tamanho");
     return;
   }
 
