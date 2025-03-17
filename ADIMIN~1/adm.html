@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estilo Urbano - Painel Administrativo</title>
+    <link rel="stylesheet" href="../public/css/adm.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="shortcut icon" href="../public/images/logo.png" type="image/*" />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <h1><i class="fas fa-tshirt"></i> Painel Administrativo</h1>
+      </div>
+    </header>
+
+    <main>
+      <!-- Products Section -->
+      <section id="products-section" class="admin-section">
+        <div class="container">
+          <div class="card">
+            <h2><i class="fas fa-plus-circle"></i> Gerenciar Produtos</h2>
+            <form id="productForm" class="formulario">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="nome">Nome do produto</label>
+                  <input type="text" id="nome" placeholder="Ex: Camiseta Básica" required />
+                </div>
+                <div class="form-group">
+                  <label for="preco">Preço (R$)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    id="preco"
+                    placeholder="Ex: 49.90"
+                    min="0"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="quantidade">Quantidade</label>
+                  <input type="number" id="quantidade" placeholder="Ex: 10" min="0" required />
+                </div>
+                <div class="form-group">
+                  <label for="tamanho">Tamanho</label>
+                  <input type="text" id="tamanho" placeholder="Ex: P,M,G,GG" required />
+                  <small>Separe os tamanhos disponíveis por vírgula (Ex: P,M,G)</small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="personalizavel">Personalizável</label>
+                <div class="toggle-container">
+                  <input type="checkbox" id="personalizavel" />
+                  <label for="personalizavel" class="toggle-label">
+                    <span class="toggle-switch"></span>
+                  </label>
+                </div>
+                <small>Marque esta opção se o cliente pode adicionar nome/número ao produto</small>
+              </div>
+
+              <div class="form-group">
+                <label for="imagem">Imagem do produto</label>
+                <div class="file-input-container">
+                  <div class="file-preview" id="imagePreview">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Clique para selecionar uma imagem</span>
+                  </div>
+                  <input type="file" id="imagem" accept="image/*" />
+                </div>
+                <small>Formatos aceitos: JPG, PNG. Tamanho máximo: 5MB</small>
+              </div>
+
+              <div class="button-group">
+                <button type="button" id="cancelBtn" class="hidden" data-action="cancel-edit">
+                  <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="submit" id="submitBtn" data-action="add-product">
+                  <i class="fas fa-plus"></i> Adicionar Produto
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="card">
+            <h2><i class="fas fa-list"></i> Lista de Produtos</h2>
+            <div class="search-container">
+              <input type="text" id="search-input" placeholder="Buscar produtos..." />
+              <button id="searchBtn" data-action="search-products">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <section class="produtos" id="produtos">
+              <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Carregando produtos...</p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- Notification System (Replaces alerts) -->
+      <div id="notification-container"></div>
+    </main>
+
+    <footer>
+      <p>&copy; 2023 Space Store - Todos os direitos reservados</p>
+    </footer>
+
+    <script type="module" src="../public/js/adm.js"></script>
+  </body>
+</html>
