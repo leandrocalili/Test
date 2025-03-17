@@ -3,8 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Loja - Página do Público</title>
+    <title>Space Store - Moda Urbana</title>
     <link rel="stylesheet" href="./public/css/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -12,7 +18,7 @@
   </head>
   <body>
     <header>
-      <img src="logodaloja01.png" alt="Logo da Loja" class="logo" />
+      <img src="logodaloja01.png" alt="Space Store" class="logo" />
       <div class="carrinho" onclick="mostrarCarrinho()">
         <i class="fas fa-shopping-cart"></i> Carrinho (<span id="quantidade-carrinho">0</span>)
       </div>
@@ -38,7 +44,6 @@
                 <div id="opcoes-tamanho" class="opcoes-botoes"></div>
               </div>
 
-              <!-- No changes needed to the HTML file as it already has the correct structure for the personalization fields -->
               <div id="personalizacao-container" style="display: none">
                 <label>Personalização:</label>
                 <div class="personalizacao-campos">
@@ -87,14 +92,15 @@
             <select id="forma-pagamento">
               <option value="dinheiro">Dinheiro</option>
               <option value="pix">Pix</option>
+              <option value="cartao">Cartão de Crédito/Débito</option>
             </select>
           </div>
           <div class="carrinho-botoes">
             <button class="btn-enviar" onclick="enviarPedido()">
-              <i class="fas fa-paper-plane"></i> Gerar Nota e Enviar
+              <i class="fas fa-paper-plane"></i> Finalizar Pedido
             </button>
             <button class="btn-fechar" onclick="fecharCarrinho()">
-              <i class="fas fa-times"></i> Fechar
+              <i class="fas fa-times"></i> Continuar Comprando
             </button>
           </div>
         </div>
@@ -106,11 +112,11 @@
         <a href="https://wa.me/+553398681074" target="_blank" class="whatsapp" id="link-whatsapp">
           <i class="fab fa-whatsapp"></i> WhatsApp
         </a>
-        <a href="https://instagram.com/estilourbano.itacity" class="instagram" id="link-instagram">
+        <a href="https://instagram.com/estilourbano.itacity" class="instagram" id="link-instagram" target="_blank">
           <i class="fab fa-instagram"></i> Instagram
         </a>
       </div>
-      <div class="copyright">© 2025 Space Store. Todos os direitos reservados</div>
+      <div class="copyright">© 2023 Space Store. Todos os direitos reservados</div>
     </footer>
 
     <script type="module" src="./public/js/index.js"></script>

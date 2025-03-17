@@ -1,14 +1,18 @@
 :root {
-  --primary-color: #010101;
-  --secondary-color: #050505;
-  --accent-color: #4caf50;
+  --primary-color: #000000;
+  --secondary-color: #222222;
+  --accent-color: #3d3d3d;
   --text-color: #333;
   --light-text: #f8f9fa;
   --border-color: #e0e0e0;
   --background-color: #f5f7fa;
   --card-background: #ffffff;
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
+  --success: #28a745;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --info: #17a2b8;
 }
 
 * {
@@ -18,7 +22,7 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
   background-color: var(--background-color);
@@ -29,7 +33,7 @@ body {
 header {
   background-color: var(--primary-color);
   color: var(--light-text);
-  padding: 1rem 0;
+  padding: 1.2rem 0;
   box-shadow: var(--shadow);
   position: sticky;
   top: 0;
@@ -48,6 +52,8 @@ header {
 header h1 {
   font-size: 1.5rem;
   margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 nav {
@@ -82,9 +88,14 @@ main {
 
 .card {
   background-color: var(--card-background);
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: var(--shadow);
-  padding: 1.5rem;
+  padding: 1.8rem;
+  transition: var(--transition);
+}
+
+.card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
 .card h2 {
@@ -92,13 +103,20 @@ main {
   margin-bottom: 1.5rem;
   font-size: 1.3rem;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card h2 i {
+  color: var(--primary-color);
 }
 
 .formulario {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .form-group {
@@ -109,7 +127,7 @@ main {
 
 .form-row {
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .form-row .form-group {
@@ -118,25 +136,78 @@ main {
 
 label {
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--text-color);
   text-align: left;
 }
 
 input,
 select {
-  padding: 0.75rem;
+  padding: 0.85rem;
   border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 1rem;
   transition: var(--transition);
+  font-family: "Poppins", sans-serif;
 }
 
 input:focus,
 select:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-container {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  margin-top: 5px;
+}
+
+.toggle-container input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-label {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.toggle-switch {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-label {
+  background-color: var(--primary-color);
+}
+
+input:checked + .toggle-label .toggle-switch {
+  transform: translateX(30px);
+}
+
+small {
+  color: #666;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
 }
 
 .file-input-container {
@@ -156,8 +227,8 @@ select:focus {
 
 .file-preview {
   border: 2px dashed var(--border-color);
-  border-radius: 4px;
-  padding: 2rem;
+  border-radius: 8px;
+  padding: 2.5rem;
   text-align: center;
   color: #888;
   cursor: pointer;
@@ -165,33 +236,36 @@ select:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 .file-preview:hover {
   border-color: var(--primary-color);
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
 .file-preview i {
-  font-size: 2rem;
+  font-size: 2.2rem;
+  color: var(--primary-color);
 }
 
 .file-preview img {
   max-width: 100%;
   max-height: 200px;
-  border-radius: 4px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .button-group {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 button {
-  padding: 0.75rem 1.5rem;
+  padding: 0.85rem 1.5rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
@@ -199,16 +273,18 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  font-family: "Poppins", sans-serif;
 }
 
 #submitBtn {
-  background-color: var(--accent-color);
+  background-color: var(--primary-color);
   color: white;
   flex: 1;
 }
 
 #submitBtn:hover {
-  background-color: #3d8b40;
+  background-color: #333;
+  transform: translateY(-2px);
 }
 
 #cancelBtn {
@@ -218,6 +294,7 @@ button {
 
 #cancelBtn:hover {
   background-color: #e0e0e0;
+  transform: translateY(-2px);
 }
 
 .search-container {
@@ -229,6 +306,7 @@ button {
   flex: 1;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  border-right: none;
 }
 
 .search-container button {
@@ -236,12 +314,16 @@ button {
   border-bottom-left-radius: 0;
   background-color: var(--primary-color);
   color: white;
-  padding: 0 1rem;
+  padding: 0 1.2rem;
+}
+
+.search-container button:hover {
+  background-color: #333;
 }
 
 .produtos {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
@@ -249,34 +331,41 @@ button {
 .produto {
   background: var(--card-background);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1rem;
+  border-radius: 12px;
+  padding: 1.2rem;
   text-align: center;
   position: relative;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: var(--transition);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .produto:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .produto img {
   width: 100%;
-  height: 180px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: 1rem;
+  transition: var(--transition);
+}
+
+.produto:hover img {
+  transform: scale(1.05);
 }
 
 .produto h2 {
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin: 0.5rem 0;
   color: var(--text-color);
   border-bottom: none;
+  padding-bottom: 0;
 }
 
 .produto p {
@@ -287,10 +376,10 @@ button {
 
 .preco {
   font-weight: bold;
-  color: var(--accent-color);
+  color: var(--primary-color);
   font-size: 1.2rem;
   margin-top: auto;
-  padding-top: 0.5rem;
+  padding-top: 0.8rem;
 }
 
 .produto-actions {
@@ -298,35 +387,78 @@ button {
   top: 0.5rem;
   right: 0.5rem;
   display: flex;
-  gap: 0.25rem;
+  gap: 0.4rem;
+  z-index: 5;
 }
 
 .editar,
 .remover {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 1rem;
   padding: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .editar {
+  background-color: var(--primary-color);
   color: white;
 }
 
+.editar:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+}
+
 .remover {
+  background-color: var(--danger);
   color: white;
+}
+
+.remover:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transform: translateX(150%);
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notification.show {
+  transform: translateX(0);
+}
+
+.notification.success {
+  background-color: var(--success);
+}
+
+.notification.error {
+  background-color: var(--danger);
 }
 
 footer {
   background-color: var(--primary-color);
   color: var(--light-text);
   text-align: center;
-  padding: 1rem;
-  margin-top: 2rem;
+  padding: 1.5rem;
+  margin-top: 3rem;
 }
 
 @media (max-width: 768px) {
@@ -335,11 +467,58 @@ footer {
   }
 
   .produtos {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
   }
 
   .header-container {
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .card {
+    padding: 1.2rem;
+  }
+
+  .produto img {
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .produtos {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .produto {
+    padding: 0.8rem;
+  }
+
+  .produto img {
+    height: 130px;
+  }
+
+  .produto h2 {
+    font-size: 0.9rem;
+  }
+
+  .produto p {
+    font-size: 0.8rem;
+  }
+
+  .preco {
+    font-size: 1rem;
+  }
+
+  .produto-actions {
+    top: 0.3rem;
+    right: 0.3rem;
+  }
+
+  .editar,
+  .remover {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
   }
 }
