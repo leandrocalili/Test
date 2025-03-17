@@ -11,6 +11,49 @@ body {
   text-align: center;
   background-color: #f8f9fa;
   color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+}
+
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footer {
+  margin-top: auto;
+  background: #000;
+  color: white;
+  padding: 30px 20px;
+  width: 100%;
+}
+
+.no-products {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #666;
+  margin: auto;
+  width: 100%;
+}
+
+.no-products i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #ccc;
 }
 
 header {
@@ -164,6 +207,8 @@ header {
   display: flex !important;
 }
 
+
+
 /* Add these improved mobile styles */
 @media (max-width: 768px) {
   .produto-detalhes {
@@ -216,6 +261,28 @@ header {
     padding: 15px;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 15px;
+    width: 100%;
+  }
+
+  .main-content {
+    padding: 0;
+  }
+
+  .footer {
+    padding: 20px 15px;
+  }
+
+  .social-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .whatsapp,
+  .instagram {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 0.9em;
   }
 
   .produto {
@@ -365,6 +432,7 @@ header {
     font-size: 0.85em;
   }
 }
+
 .modal-content {
   background-color: white;
   border-radius: 12px;
@@ -714,6 +782,7 @@ header {
   border-color: #000;
   outline: none;
 }
+
 .footer {
   background: #000;
   color: white;
