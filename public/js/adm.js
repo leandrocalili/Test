@@ -349,6 +349,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Setup cancel edit event listener
+  const cancelBtn = document.getElementById("cancelBtn");
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", cancelarEdicao);
+  }
+
   // Setup image preview
   const imageInput = document.getElementById("imagem");
   if (imageInput) {
