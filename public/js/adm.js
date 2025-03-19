@@ -340,6 +340,15 @@ window.cancelarMudanca = function () {
 document.addEventListener("DOMContentLoaded", function () {
   atualizarProdutos();
 
+  // Setup submit event to prevent default behavior and call adicionarProduto
+  const productForm = document.getElementById("productForm");
+  if (productForm) {
+    productForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      window.adicionarProduto();
+    });
+  }
+
   // Setup image preview
   const imageInput = document.getElementById("imagem");
   if (imageInput) {
