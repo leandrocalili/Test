@@ -34,19 +34,41 @@ const showNotification = (message, type = "success") => {
   }, 3000);
 };
 
+// Função para converter intervalo de tamanhos em lista
+function processarTamanhos(tamanhoInput) {
+  // Verifica se é um intervalo (contém "ao" ou "-")
+  if (tamanhoInput.includes("ao") || tamanhoInput.includes("-")) {
+    // Normaliza o separador para "-"
+    const intervalo = tamanhoInput.replace(" ao ", "-").replace(" - ", "-");
+    const [inicio, fim] = intervalo.split("-").map((num) => parseInt(num.trim()));
+
+    // Verifica se os números são válidos
+    if (!isNaN(inicio) && !isNaN(fim) && inicio <= fim) {
+      // Gera array com todos os números do intervalo
+      return Array.from({ length: fim - inicio + 1 }, (_, i) => (inicio + i).toString()).join(",");
+    }
+  }
+
+  // Se não for intervalo, retorna o input original (para manter compatibilidade com P,M,G)
+  return tamanhoInput;
+}
+
 window.adicionarProduto = async function () {
   const nome = document.getElementById("nome").value;
   const quantidade = document.getElementById("quantidade").value;
-  const tamanho = document.getElementById("tamanho").value.trim();
+  const tamanhoInput = document.getElementById("tamanho").value.trim();
   const preco = document.getElementById("preco").value;
   const imagemInput = document.getElementById("imagem");
 
-  if (!nome || !quantidade || !tamanho || !preco) {
+  if (!nome || !quantidade || !tamanhoInput || !preco) {
     showNotification("Por favor, preencha todos os campos obrigatórios", "error");
     return;
   }
 
-  // Validate tamanho format (comma-separated values)
+  // Processa o input de tamanhos
+  const tamanho = processarTamanhos(tamanhoInput);
+
+  // Validate tamanho format
   const tamanhos = tamanho
     .split(",")
     .map((t) => t.trim())
